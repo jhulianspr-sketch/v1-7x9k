@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Mensaje Espacial</title>
+<style>
+html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+    font-family: Arial, sans-serif;
+}
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+.mensaje {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    color: white;
+    text-shadow: 0 0 12px rgba(255,255,255,0.7);
+    z-index: 1;
+}
+h1 { text-align: center; }
+p { font-size: 18px; line-height: 1.6; text-align: justify; }
+.firma { margin-top: 25px; text-align: right; opacity: 0.8; }
+</style>
+</head>
+<body>
+
+<canvas id="space"></canvas>
+
+<div class="mensaje">
+    <h1>vero 😍</h1>
+    <p>Quería escribirte algo simple pero sincero. Me cae muy bien hablar contigo y conocerte poco a poco.</p>
+    <p>Creo que las amistades se construyen con respeto, confianza y momentos tranquilos.</p>
+    <p>Solo quería que supieras que valoro mucho tu amistad y que me parece genial seguir conociéndonos.</p>
+    <div class="firma">jhulians 😊</div>
+</div>
+
+<script>
+const canvas = document.getElementById("space");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let shake = 0;
+
+// ⭐ Estrellas 3D
+let stars = [];
+for (let i = 0; i < 1000; i++) {
+    stars.push({
+        x: Math.random()*canvas.width - canvas.width/2,
+        y: Math.random()*canvas.height - canvas.height/2,
+        z: Math.random()*canvas.width
+    });
+}
+
+// 🪐 Planetas coloreados
+let planets = [
+    {
+        x: canvas.width*0.8,
+        y: canvas.height*0.3,
+        r: 80,
+        speed: 0.15,
+        ring: true,
+        craters: [],
+        type: "gas" // Júpiter / Saturno
+    },
+    {
+        x: canvas.width*0.25,
+        y: canvas.height*0.7,
+        r: 55,
+        speed: 0.08,
+        ring: false,
+        craters: [],
+        type: "rock" // Marte
+    }
+];
+
+// ☄️ Meteoritos
+let meteors = [];
+let explosions = [];
+let shockwaves = [];
+
+function drawPlanet(p) {
+    let grad;
+
+    if (p.type === "rock") {
+        // Planeta rocoso
+        grad = ctx.createRadialGradient(
+            p.x - p.r*0.4, p.y - p.r*0.4, p.r*0.2,
+            p.x, p.y, p.r
+        );
+        grad.addColorStop(0, "#cfa27c");
+        grad.addColorStop(0.5, "#8b5a3c");
+        grad.addColorStop(1, "#2b1a10");
+    } else {
+        // Planeta gaseoso
+        grad = ctx.createRadialGradient(
+            p.x - p.r*0.3, p.y - p.r*0.3, p.r*0.2,
+            p.x, p.y, p.r
+        );
+        grad.addColorStop(0, "#f5deb3");
+        grad.addColorStop(0.4, "#d2b48c");
+        grad.addColorStop(0.7, "#a88c6a");
+        grad.addColorStop(1, "#3a2e22");
+    }
+
+    // Planeta base
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Atmósfera
+    ctx.strokeStyle = "rgba(120,170,255,0.18)";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    // Cráteres
+    p.craters.forEach(c => {
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI*2);
+        ctx.fillStyle = "rgba(0,0,0,0.45)";
+        ctx.fill();
+    });
+
+    // Anillos
+    if (p.ring) {
+        ctx.beginPath();
+        ctx.ellipse(p.x, p.y, p.r*1.7, p.r*0.6, -0.3, 0, Math.PI*2);
+        ctx.strokeStyle = "rgba(220,200,170,0.5)";
+        ctx.lineWidth = 3;
+        ctx.stroke();
+    }
+}
+
+function createMeteor() {
+    return {
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height/2,
+        vx: Math.random()*6 + 4,
+        vy: Math.random()*3 + 2,
+        life: 140
+    };
+}
+
+function explode(x, y, planet) {
+    shake = 15;
+    // Cráter
+    planet.craters.push({ x, y, r: 10 + Math.random()*10 });
+
+    // Onda expansiva
+    shockwaves.push({ x, y, r: 0, life: 30 });
+
+    // Partículas
+    for (let i = 0; i < 50; i++) {
+        explosions.push({
+            x, y,
+            vx: (Math.random()-0.5)*8,
+            vy: (Math.random()-0.5)*8,
+            life: 50
+        });
+    }
+}
+
+function animate() {
+    ctx.save();
+    ctx.translate(
+        (Math.random()-0.5)*shake,
+        (Math.random()-0.5)*shake
+    );
+    shake = Math.max(0, shake - 1);
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    // Estrellas
+    stars.forEach(s => {
+        s.z -= 3;
+        if (s.z <= 0) s.z = canvas.width;
+        let k = 128 / s.z;
+        let x = s.x * k + canvas.width/2;
+        let y = s.y * k + canvas.height/2;
+        let size = (1 - s.z / canvas.width) * 2.5;
+        if (x>=0 && y>=0 && x<=canvas.width && y<=canvas.height) {
+            ctx.fillStyle = "white";
+            ctx.fillRect(x,y,size,size);
+        }
+    });
+
+    // Planetas
+    planets.forEach(p => {
+        p.x -= p.speed;
+        if (p.x + p.r < 0) {
+            p.x = canvas.width + p.r;
+            p.craters = [];
+        }
+        drawPlanet(p);
+    });
+
+    // Meteoritos
+    if (Math.random() < 0.03) meteors.push(createMeteor());
+
+    meteors.forEach((m, i) => {
+        m.x += m.vx;
+        m.y += m.vy;
+        m.life--;
+
+        planets.forEach(p => {
+            let dx = m.x - p.x;
+            let dy = m.y - p.y;
+            if (Math.hypot(dx, dy) < p.r) {
+                explode(m.x, m.y, p);
+                meteors.splice(i,1);
+            }
+        });
+
+        ctx.strokeStyle = "white";
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x-m.vx*4, m.y-m.vy*4);
+        ctx.stroke();
+
+        if (m.life <= 0) meteors.splice(i,1);
+    });
+
+    // Explosiones
+    explosions.forEach((e,i) => {
+        ctx.fillStyle = "orange";
+        ctx.fillRect(e.x, e.y, 2, 2);
+        e.x += e.vx;
+        e.y += e.vy;
+        e.life--;
+        if (e.life <= 0) explosions.splice(i,1);
+    });
+
+    // Ondas expansivas
+    shockwaves.forEach((s,i) => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.strokeStyle = `rgba(255,150,0,${s.life/30})`;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        s.r += 6;
+        s.life--;
+        if (s.life <= 0) shockwaves.splice(i,1);
+    });
+
+    ctx.restore();
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+addEventListener("resize", ()=>{
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+});
+</script>
+
+    <!-- MÚSICA -->
+<audio id="musica" loop>
+  <source src="querer.mp3" type="audio/mpeg">
+</audio>
+
+<button onclick="toggleMusic()" style="
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  padding: 12px 20px;
+  font-size: 16px;
+  background: #111;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+">
+▶ Reproducir música
+</button>
+
+<script>
+const musica = document.getElementById("musica");
+
+function toggleMusic() {
+  if (musica.paused) {
+    musica.play();
+  } else {
+    musica.pause();
+  }
+}
+</script>
+
+</body>
+</html>
