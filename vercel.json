@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "**/*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "images/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index.html"
+    },
+    {
+      "src": "/consejos",
+      "dest": "/consejos.html"
+    },
+    {
+      "src": "/consejos.html",
+      "dest": "/consejos.html"
+    },
+    {
+      "src": "/motivacion",
+      "dest": "/motivacion.html"
+    },
+    {
+      "src": "/motivacion.html",
+      "dest": "/motivacion.html"
+    },
+    {
+      "src": "/vida-diaria",
+      "dest": "/vida-diaria.html"
+    },
+    {
+      "src": "/vida-diaria.html",
+      "dest": "/vida-diaria.html"
+    },
+    {
+      "src": "/contacto",
+      "dest": "/contacto.html"
+    },
+    {
+      "src": "/contacto.html",
+      "dest": "/contacto.html"
+    },
+    {
+      "src": "/posts",
+      "dest": "/posts/index.html"
+    },
+    {
+      "src": "/posts/",
+      "dest": "/posts/index.html"
+    },
+    {
+      "src": "/posts/(.*)",
+      "dest": "/posts/$1.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1.html"
+    }
+  ]
+}

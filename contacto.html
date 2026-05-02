@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Parche Digital</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cyber-grid"></div>
+    
+    <!-- Botón Menú Deslizante -->
+    <button class="menu-toggle-btn" id="menuToggleBtn">☰</button>
+    
+    <!-- Menú Deslizante Vertical -->
+    <div class="sliding-menu" id="slidingMenu">
+        <div class="sliding-menu-header">
+            <h3 class="sliding-menu-title">P<span class="neon-text">ARCHE</span> D<span class="neon-text">IGITAL</span></h3>
+            <button class="close-sliding-menu-btn" id="closeSlidingMenuBtn">✕</button>
+        </div>
+        
+        <nav class="sliding-nav">
+            <ul class="sliding-nav-list">
+                <li><a href="index.html" class="sliding-nav-link">INICIO</a></li>
+                <li><a href="motivacion.html" class="sliding-nav-link">MOTIVACIÓN</a></li>
+                <li><a href="consejos.html" class="sliding-nav-link">CONSEJOS</a></li>
+                <li><a href="vida-diaria.html" class="sliding-nav-link">VIDA DIARIA</a></li>
+                <li><a href="contacto.html" class="sliding-nav-link active">CONTACTO</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <!-- Overlay para cerrar menú -->
+    <div class="sliding-menu-overlay" id="slidingMenuOverlay"></div>
+
+    <main class="main">
+        <section class="hero">
+            <div class="hero-content">
+                <h2 class="hero-title glow-text">CONÉCTATE <span class="neon-text">CON NOSOTROS</span></h2>
+                <p class="hero-subtitle">Tu voz importa, queremos escucharte</p>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <div class="terminal-btn terminal-close"></div>
+                            <div class="terminal-btn terminal-minimize"></div>
+                            <div class="terminal-btn terminal-maximize"></div>
+                        </div>
+                        <div class="terminal-title">ACCESO_CONTACTO@PARCHE_DIGITAL</div>
+                    </div>
+                    
+                    <div class="terminal-body">
+                        <div class="terminal-content">
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">root@parchedigital:~$</span>
+                                <span class="terminal-command">./init_contact_system.sh</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">Iniciando protocolo de contacto...</span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">Estado del sistema: <span class="status-active">ACTIVO</span></span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-output">Canal: <span class="status-secure">CONEXIÓN SEGURA</span></span>
+                            </div>
+                            <div class="terminal-line">
+                                <span class="terminal-prompt">root@parchedigital:~$</span>
+                                <span class="terminal-command typing-text">cat contact_info.txt</span>
+                                <span class="terminal-cursor">█</span>
+                            </div>
+                            
+                            <div class="contact-terminal">
+                                <div class="terminal-section-title glitch-text">> ACCESO_CONTACTO</div>
+                                <div class="terminal-description">
+                                    <p class="typing-description">Este es un canal de contacto directo del sistema Parche Digital.</p>
+                                    <p class="typing-description">Puedes enviar mensajes, ideas, colaboraciones o saludos.</p>
+                                    <p class="typing-description">El sistema está activo y disponible para comunicación.</p>
+                                </div>
+                                
+                                <div class="contact-data-terminal">
+                                    <div class="data-line">
+                                        <span class="data-label">CORREO</span>
+                                        <span class="data-separator">>></span>
+                                        <span class="data-value">jhuliansjoseb@gmail.com</span>
+                                    </div>
+                                    <div class="data-line">
+                                        <span class="data-label">TELÉFONO</span>
+                                        <span class="data-separator">>></span>
+                                        <span class="data-value">+57 3242072361</span>
+                                    </div>
+                                    <div class="data-line">
+                                        <span class="data-label">ESTADO</span>
+                                        <span class="data-separator">>></span>
+                                        <span class="data-value status-active">ACTIVO</span>
+                                    </div>
+                                    <div class="data-line">
+                                        <span class="data-label">CONEXIÓN</span>
+                                        <span class="data-separator">>></span>
+                                        <span class="data-value status-secure">SEGURA</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="terminal-form-section">
+                                    <div class="terminal-line">
+                                        <span class="terminal-prompt">root@parchedigital:~$</span>
+                                        <span class="terminal-command">./send_message.sh</span>
+                                    </div>
+                                    
+                                    <form class="terminal-form">
+                                        <div class="form-group-terminal">
+                                            <label class="form-label-terminal">[ENTRADA] NOMBRE_USUARIO:</label>
+                                            <input type="text" id="nombre" name="nombre" class="terminal-input" required>
+                                        </div>
+                                        
+                                        <div class="form-group-terminal">
+                                            <label class="form-label-terminal">[ENTRADA] CORREO_USUARIO:</label>
+                                            <input type="email" id="email" name="email" class="terminal-input" required>
+                                        </div>
+                                        
+                                        <div class="form-group-terminal">
+                                            <label class="form-label-terminal">[SELECCIÓN] TIPO_MENSAJE:</label>
+                                            <select id="asunto" name="asunto" class="terminal-select" required>
+                                                <option value="">[SELECCIÓN] elegir_opción</option>
+                                                <option value="colaboracion">[COLABORACIÓN] Proyectos_Conjuntos</option>
+                                                <option value="sugerencia">[SUGERENCIA] Mejora_Sistema</option>
+                                                <option value="consulta">[CONSULTA] Consulta_General</option>
+                                                <option value="publicidad">[PUBLICIDAD] Propuesta_Negocio</option>
+                                                <option value="otro">[OTRO] Mensaje_Personalizado</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group-terminal">
+                                            <label class="form-label-terminal">[ENTRADA] DATOS_MENSAJE:</label>
+                                            <textarea id="mensaje" name="mensaje" class="terminal-textarea" rows="6" required></textarea>
+                                        </div>
+                                        
+                                        <button type="submit" class="terminal-submit-btn">
+                                            <span class="btn-text">[EJECUTAR] TRANSMITIR_MENSAJE</span>
+                                            <span class="btn-cursor">█</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                
+                                <div class="terminal-footer">
+                                    <div class="terminal-line">
+                                        <span class="terminal-prompt">root@parchedigital:~$</span>
+                                        <span class="terminal-cursor blink">█</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>P<span class="neon-text">ARCHE</span> D<span class="neon-text">IGITAL</span></h3>
+                    <p>Blog cyberpunk para jóvenes</p>
+                </div>
+                <div class="footer-links">
+                    <h4>ENLACES RÁPIDOS</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="motivacion.html">Motivación</a></li>
+                        <li><a href="consejos.html">Consejos</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h4>SÍGUENOS</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link neon-border">IG</a>
+                        <a href="#" class="social-link neon-border">TW</a>
+                        <a href="#" class="social-link neon-border">YT</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Parche Digital. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
